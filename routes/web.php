@@ -17,10 +17,15 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', function () {
+Route::any('/login', function () {
+
     return view('login');
 });
 
 Route::get('/teacher', function () {
     return view('teacher');
+});
+
+Route::get('/student', function () {
+    return view('student');
 });
