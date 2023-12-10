@@ -8,7 +8,14 @@
         <div class="d-lg-flex justify-content-between m-5 p-5 shadow-lg border bg-dark rounded-5">
             <div class="text-light m-3">Number of Classes Conducted: {{$count}}</div>
             <div class="text-light m-3">Number of Classes Attended: {{$presents}}</div>
-            <div class="text-light m-3">Percentage Attendance: {{$percentage}}%</div>
+            @if ($percentage > 85)
+                <div class="text-light m-3">Percentage Attendance: <span style="color:green">{{$percentage}}%</span></div>
+            @elseif ($percentage > 75)
+                <div class="text-light m-3">Percentage Attendance: <span style="color:yellow">{{$percentage}}%</span></div>
+            @else
+                <div class="text-light m-3">Percentage Attendance: <span style="font-weight:bold ;color:red">{{$percentage}}%</span></div>
+            @endif
+            
         </div>
         <div class="d-flex justify-content-between">
             <div class="text-light tablehead" style="width:50%">Class</div>

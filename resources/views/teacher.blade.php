@@ -24,7 +24,14 @@
                 <div class="d-flex justify-content-between">
                     <div class="text-light m-3" style="width:25%">{{ $attendance->studentid }}</div>
                     <div class="text-light m-3" style="width:25%">{{ $attendance->user->fullname }}</div>
-                    <div class="text-light m-3" style="width:25%">Percentage Attendance</div>
+                    @if ($attendance->user->percentage() > 85)
+                        <div class="text-light m-3" style="width: 25%"><span style="color:green">{{$attendance->user->percentage()}}%</span></div>
+                    @elseif ($attendance->user->percentage() > 75)
+                        <div class="text-light m-3" style="width: 25%"><span style="color:yellow">{{$attendance->user->percentage()}}%</span></div>
+                    @else
+                        <div class="text-light m-3" style="width: 25%"><span style="font-weight:bold ;color:red">{{$attendance->user->percentage()}}%</span></div>
+                    @endif
+                    
                     @if ($attendance->isPresent)
                         <div class="m-3" style="width:25%"><input id="check" name={{ $attendance->studentid }} type="checkbox" class="btn-check" checked><label class="attendancebtn btn btn-success" for="btn-check">Present</label></div>
                     @else

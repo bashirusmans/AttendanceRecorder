@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Attendance;
 
 class User extends Authenticatable
 {
@@ -19,6 +20,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function percentage(){
+        $attendances = Attendance::where('studentid', $this->id)->get();
+        $count = $attendances->count();
+        $presents = Attendance::where('studentid', $this->id)
+        ->where('isPresent', 1)->count();
+        $percentage = ($count > 0) ? ($presents / $count) * 100 : 0;
+        return $percentage;
+    }
 
     public function class()
     {
