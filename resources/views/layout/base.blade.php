@@ -18,7 +18,7 @@
                 <div class="mt-1 mx-1">
                     @if (Auth::check())
                         <label>
-                            <a href="{{ url('/login') }}" class="login-btn btn btn-outline-danger">Logout</a>
+                            <a href="{{ url('/logout') }}" class="login-btn btn btn-outline-danger">Logout</a>
                         </label>
                     @else
                         <label>

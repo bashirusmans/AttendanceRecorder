@@ -7,7 +7,7 @@
     <div class="container mt-5">
         <div class="d-lg-flex justify-content-between m-5 p-5 shadow-lg border bg-dark rounded-5">
             <div class="sessionbtn"><a class="btn btn-light"><--- Previous Session</a></div>
-            <div class="sessiontxt medium-title text-light">Date</div>
+            <div class="sessiontxt medium-title text-light">{{ $class->date }}</div>
             <div class="sessionbtn"><a class="btn btn-light">Next Session ---></a></div>
         </div>
         <div class="d-flex justify-content-between">
@@ -17,11 +17,24 @@
             <div class="text-light tablehead" style="width:25%">Session Attendance</div>
         </div>
         <hr class="border-light">
-        <div class="d-flex justify-content-between">
-            <div class="text-light m-3" style="width:25%">Student ID</div>
-            <div class="text-light m-3" style="width:25%">Name</div>
-            <div class="text-light m-3" style="width:25%">Percentage Attendance</div>
-            <div class="m-3" style="width:25%"><a class="attendancebtn btn btn-success">Present</a></div>
-        </div>
+        <form method="POST" id="attform">
+            @csrf
+            @foreach ($attendances as $attendance)
+                
+                <div class="d-flex justify-content-between">
+                    <div class="text-light m-3" style="width:25%">{{ $attendance->studentid }}</div>
+                    <div class="text-light m-3" style="width:25%">{{ $attendance->user->fullname }}</div>
+                    <div class="text-light m-3" style="width:25%">Percentage Attendance</div>
+                    @if ($attendance->isPresent)
+                        <div class="m-3" style="width:25%"><input id="check" name={{ $attendance->studentid }} type="checkbox" class="btn-check" checked><label class="attendancebtn btn btn-success" for="btn-check">Present</label></div>
+                    @else
+                        <div class="m-3" style="width:25%"><input id="check" name={{ $attendance->studentid }} type="checkbox" class="btn-check" ><label class="attendancebtn btn btn-danger" for="btn-check">Absent</label></div>
+                    @endif
+                    
+                </div>
+
+            @endforeach
+            <div class=""><input type="submit" class="savebtn btn btn-success" value="Save"></div>
+        </form>
     </div>
 @endsection

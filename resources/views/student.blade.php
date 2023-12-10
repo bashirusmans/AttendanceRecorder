@@ -6,18 +6,27 @@
     </div>
     <div class="container mt-5">
         <div class="d-lg-flex justify-content-between m-5 p-5 shadow-lg border bg-dark rounded-5">
-            <div class="text-light m-3">Number of Classes Conducted:</div>
-            <div class="text-light m-3">Number of Classes Attended:</div>
-            <div class="text-light m-3">Percentage Attendance:</div>
+            <div class="text-light m-3">Number of Classes Conducted: {{$count}}</div>
+            <div class="text-light m-3">Number of Classes Attended: {{$presents}}</div>
+            <div class="text-light m-3">Percentage Attendance: {{$percentage}}%</div>
         </div>
         <div class="d-flex justify-content-between">
-            <div class="text-light tablehead" style="width:50%">Class ID</div>
+            <div class="text-light tablehead" style="width:50%">Class</div>
             <div class="text-light tablehead" style="width:50%">Attendance</div>
         </div>
         <hr class="border-light">
-        <div class="d-flex justify-content-between">
-            <div class="text-light m-3" style="width:50%">Class ID</div>
-            <div class="text-light m-3" style="width:50%">Attendance</div>
-        </div>
+        @foreach ($attendances as $attendance)
+                
+            <div class="d-flex justify-content-between">
+                <div class="text-light m-3" style="width:50%">{{ $attendance->date }}</div>
+                @if ($attendance->isPresent)
+                    <div class="text-light m-3" style="width:50%;"><p style=" color:green;">Present</p></div>
+                @else
+                    <div class="text-light m-3" style="width:50%;"><p style=" color:red;">Absent</p></div>
+                @endif
+                
+            </div>
+
+        @endforeach
     </div>
 @endsection
